@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "First deployment"
+  labels:
+    app: failed-deploy
+  name: failed-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: failed-deploy
+  template:
+    metadata:
+      labels:
+        app: failed-deploy
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "Image change"
+  labels:
+    app: failed-deploy
+  name: failed-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: failed-deploy
+  template:
+    metadata:
+      labels:
+        app: failed-deploy
+    spec:
+      containers:
+      - image: nginx:1.9.1
+        name: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "Image change 2"
+  labels:
+    app: failed-deploy
+  name: failed-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: failed-deploy
+  template:
+    metadata:
+      labels:
+        app: failed-deploy
+    spec:
+      containers:
+      - image: nginx:1.17.10
+        name: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "Image change 3"
+  labels:
+    app: failed-deploy
+  name: failed-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: failed-deploy
+  template:
+    metadata:
+      labels:
+        app: failed-deploy
+    spec:
+      containers:
+      - image: nginx:1.18.0
+        name: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "Image change 4"
+  labels:
+    app: failed-deploy
+  name: failed-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: failed-deploy
+  template:
+    metadata:
+      labels:
+        app: failed-deploy
+    spec:
+      containers:
+      - image: nginx:1.1822
+        name: nginx
