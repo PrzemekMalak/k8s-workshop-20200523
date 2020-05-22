@@ -1,0 +1,75 @@
+# Service does not work. Please fix it
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: servicens
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: servicens
+  creationTimestamp: null
+  labels:
+    app: api32-deployment
+  name: api32-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api32-deployment
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: api32-deployment
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: servicens
+  creationTimestamp: null
+  labels:
+    app: api32-back-deployment
+  name: api32-back-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api32-back-deployment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: api32-back-deployment
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api32-back-deployment
+  name: api32-backend-deployment
+  namespace: servicens
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    id: api32-back-deployment
+  sessionAffinity: None
+  type: ClusterIP
+
+

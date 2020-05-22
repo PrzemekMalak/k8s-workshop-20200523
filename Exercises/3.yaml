@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 81
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 200m
+      - args:
+        - sh
+        - -c
+        - touch /tmp/ready && sleep 1d
+        image: busybox:1.31.0
+        name: logger
+        livenessProbe:
+          exec:
+            command:
+              - cat /tmp/ready
+          initialDelaySeconds: 5

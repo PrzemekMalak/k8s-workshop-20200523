@@ -1,3 +1,5 @@
+# Find last working version of the deployment and make a rollback
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
